@@ -11,8 +11,7 @@ class QuadraticEquationTest {
     @Test
     void solveEmpty() {
         QuadraticEquation main = new QuadraticEquation();
-        double[] solve = main.solve(1, 0, 1);
-        Assertions.assertEquals(solve.length, 0);
+        Assertions.assertThrowsExactly(RuntimeException.class, () -> main.solve(1, 0, 1));
     }
 
     /**
@@ -45,11 +44,7 @@ class QuadraticEquationTest {
     @Test
     void solveZeroA() {
         QuadraticEquation main = new QuadraticEquation();
-        try {
-            main.solve(0, 2, 1);
-            Assertions.fail();
-        } catch (Exception ignore) {
-        }
+        Assertions.assertThrowsExactly(RuntimeException.class, () -> main.solve(10e-9, 2, 1));
     }
 
     /**
@@ -71,43 +66,19 @@ class QuadraticEquationTest {
     @Test
     void solveCustom() {
         QuadraticEquation main = new QuadraticEquation();
-        try {
-            main.solve(Double.POSITIVE_INFINITY, 2, 1);
-            Assertions.fail();
-        } catch (Exception ignore) {
-        }
-        try {
-            main.solve(0, Double.POSITIVE_INFINITY, 1);
-            Assertions.fail();
-        } catch (Exception ignore) {
-        }
-        try {
-            main.solve(0, 2, Double.POSITIVE_INFINITY);
-            Assertions.fail();
-        } catch (Exception ignore) {
-        }
-        try {
-            main.solve(Double.NaN, 2, 1);
-            Assertions.fail();
-        } catch (Exception ignore) {
-        }
-        try {
-            main.solve(0, Double.NaN, 1);
-            Assertions.fail();
-        } catch (Exception ignore) {
-        }
-        try {
-            main.solve(0, 2, Double.NaN);
-            Assertions.fail();
-        } catch (Exception ignore) {
-        }
+        Assertions.assertThrowsExactly(RuntimeException.class, () -> main.solve(Double.POSITIVE_INFINITY, 2, 1));
+        Assertions.assertThrowsExactly(RuntimeException.class, () -> main.solve(0, Double.POSITIVE_INFINITY, 1));
+        Assertions.assertThrowsExactly(RuntimeException.class, () -> main.solve(0, 2, Double.POSITIVE_INFINITY));
+        Assertions.assertThrowsExactly(RuntimeException.class, () -> main.solve(Double.NaN, 2, 1));
+        Assertions.assertThrowsExactly(RuntimeException.class, () -> main.solve(0, Double.NaN, 1));
+        Assertions.assertThrowsExactly(RuntimeException.class, () -> main.solve(0, 2, Double.NaN));
     }
 
     @Test
     void isEquals() {
-        Assertions.assertTrue(QuadraticEquation.isEquals(0,0));
-        Assertions.assertTrue(QuadraticEquation.isEquals(0,0 + QuadraticEquation.eps / 2));
-        Assertions.assertFalse(QuadraticEquation.isEquals(1,2));
+        Assertions.assertTrue(QuadraticEquation.isEquals(0, 0));
+        Assertions.assertTrue(QuadraticEquation.isEquals(0, 0 + QuadraticEquation.eps / 2));
+        Assertions.assertFalse(QuadraticEquation.isEquals(1, 2));
 
     }
 }

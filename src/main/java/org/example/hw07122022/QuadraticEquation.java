@@ -15,10 +15,10 @@ public class QuadraticEquation {
         double discriminant = b * b - 4 * a * c;
         if (isEquals(discriminant, 0)) {
             return new double[]{-b / (2 * a), -b / (2 * a)};
-        } else if (discriminant > 0) {
+        } else if (discriminant >= 0) {
             return new double[]{(-b + Math.sqrt(discriminant)) / (2 * a), (-b - Math.sqrt(discriminant)) / (2 * a)};
         } else {
-            return new double[0];
+            throw new RuntimeException("решения нет");
         }
     }
 
